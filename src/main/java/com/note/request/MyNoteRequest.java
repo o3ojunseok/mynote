@@ -2,7 +2,11 @@ package com.note.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.ToString;
+
+import java.util.List;
 
 //@Setter
 @Builder
