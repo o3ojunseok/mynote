@@ -1,4 +1,4 @@
-package com.note.request;
+package com.note.mynote.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
