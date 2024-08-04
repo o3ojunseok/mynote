@@ -1,15 +1,13 @@
 package com.note.mynote.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
-//@Setter
+@Setter
 @Getter
-@Builder
-@AllArgsConstructor
 public class TagRequest {
     Long id;
     String tagName;
+
     boolean deleted;
 }
