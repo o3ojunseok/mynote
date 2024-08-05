@@ -1,5 +1,8 @@
 package com.note.mynote.service;
 
+import com.note.exception.MyNoteNotFoundException;
+import com.note.mynote.dto.MyNoteDTO;
+import com.note.mynote.dto.TagDTO;
 import com.note.mynote.entity.MyNoteEntity;
 import com.note.mynote.entity.TagEntity;
 import com.note.mynote.repository.MyNoteRepository;
@@ -56,5 +59,26 @@ public class MyNoteService {
         ModelMapper modelMapper = new ModelMapper();
         MyNoteEntity save = myNoteRepository.save(entity);
         return modelMapper.map(save, MyNoteRequest.class);
+    }
+
+    public MyNoteDTO findById(Long id) {
+        MyNoteEntity entity = myNoteRepository.findById(id).orElseThrow(() -> new MyNoteNotFoundException(id));
+        MyNoteDTO myNoteDTO;
+        TagDTO tagDTO;
+        List<TagDTO> tagList = new ArrayList<>();
+
+        myNoteDTO = new MyNoteDTO(entity.getId(), entity.getTitle(), entity.getContent(), entity.isDone(), entity.getCreatedAt());
+
+        List<TagEntity> tags = entity.getTag();
+
+        if (tags != null) {
+            for (TagEntity tag : tags) {
+                tagDTO = new TagDTO(tag.getId(), tag.getMyTagName(), tag.isDeleted());
+                tagList.add(tagDTO);
+            }
+            myNoteDTO.setTags(tagList);
+        }
+
+        return myNoteDTO;
     }
 }
