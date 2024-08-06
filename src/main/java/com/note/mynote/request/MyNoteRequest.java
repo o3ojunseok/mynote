@@ -22,6 +22,7 @@ public class MyNoteRequest {
 
     @Schema(description = "완료 여부", example = "true")
     private boolean done;
+
     @Schema(description = "태그 리스트", example = "[ {\"deleted\" : \"false\", \"tagName\" : \"Kubernetes\"}, {\"deleted\" : \"false\", \"tagName\" : \"Docker\"} ]")
     private List<TagRequest> tag;
 }

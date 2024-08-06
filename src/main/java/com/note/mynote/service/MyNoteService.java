@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -80,5 +81,30 @@ public class MyNoteService {
         }
 
         return myNoteDTO;
+    }
+
+    public void update(Long id, MyNoteRequest myNoteRequest) {
+        MyNoteEntity entity = myNoteRepository.findById(id).orElseThrow(() -> new MyNoteNotFoundException(id));
+        entity.setTitle(myNoteRequest.getTitle());
+        entity.setContent(myNoteRequest.getContent());
+        entity.setDone(myNoteRequest.isDone());
+
+        for (TagRequest tagRequest : myNoteRequest.getTag()) {
+            Optional<TagEntity> tagEntityOptional = entity.getTag().stream()
+                    .filter(t -> t.getId().equals(tagRequest.getId()))
+                    .findFirst();
+
+            if (tagEntityOptional.isPresent()) {
+                TagEntity tag = tagEntityOptional.get();
+                tag.setMyTagName(tagRequest.getTagName());
+                tag.setDeleted(tagRequest.isDeleted());
+            } else {
+                TagEntity tag = new TagEntity();
+                tag.setMyTagName(tagRequest.getTagName());
+                tag.setMyNote(entity);
+                entity.getTag().add(tag);
+            }
+        }
+        myNoteRepository.save(entity);
     }
 }

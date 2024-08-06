@@ -36,4 +36,10 @@ public class MyNoteController {
     MyNoteDTO getNote(@PathVariable Long id) {
         return myNoteService.findById(id);
     }
+
+    @PutMapping("/mynote/{id}")
+    ResponseEntity<Void> updateNote(@PathVariable Long id, @RequestBody MyNoteRequest noteRequest) {
+        myNoteService.update(id, noteRequest);
+        return ResponseEntity.ok().build();
+    }
 }
