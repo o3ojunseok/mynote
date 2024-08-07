@@ -2,6 +2,7 @@ package com.note.mynote;
 
 import com.note.mynote.dto.MyNoteDTO;
 import com.note.mynote.entity.MyNoteEntity;
+import com.note.mynote.entity.TagEntity;
 import com.note.mynote.request.MyNoteRequest;
 import com.note.mynote.service.MyNoteService;
 import lombok.extern.slf4j.Slf4j;
@@ -47,5 +48,10 @@ public class MyNoteController {
     public String deleteNote(@PathVariable Long id) {
         myNoteService.delete(id);
         return "delete successfully";
+    }
+
+    @GetMapping("/mynote/tags")
+    List<TagEntity> getTags() {
+        return myNoteService.findMyTag();
     }
 }

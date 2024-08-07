@@ -111,4 +111,8 @@ public class MyNoteService {
     public void delete(Long id) {
         myNoteRepository.deleteById(id);
     }
+
+    public List<TagEntity> findMyTag() {
+        return tagRepository.findAll();
+    }
 }
