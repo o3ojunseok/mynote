@@ -107,4 +107,8 @@ public class MyNoteService {
         }
         myNoteRepository.save(entity);
     }
+
+    public void delete(Long id) {
+        myNoteRepository.deleteById(id);
+    }
 }
