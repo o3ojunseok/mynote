@@ -54,4 +54,9 @@ public class MyNoteController {
     List<TagEntity> getTags() {
         return myNoteService.findMyTag();
     }
+
+    @GetMapping("/mynote/tag")
+    MyNoteDTO getTag() {
+        return myNoteService.findByTag();
+    }
 }

@@ -115,4 +115,15 @@ public class MyNoteService {
     public List<TagEntity> findMyTag() {
         return tagRepository.findAll();
     }
+
+    public MyNoteDTO findByTag() {
+        Optional<TagEntity> tag = tagRepository.findById(1L);
+        MyNoteDTO myNoteDTO = null;
+
+        if (tag.isPresent()) {
+            MyNoteEntity note = tag.get().getMyNote();
+            myNoteDTO = new MyNoteDTO(note.getId(), note.getTitle(), note.getContent(), note.isDone(), note.getCreatedAt());
+        }
+        return myNoteDTO;
+    }
 }
